@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Player : Singleton<Player>
 {
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         Debug.Log("Player");
     }
 }

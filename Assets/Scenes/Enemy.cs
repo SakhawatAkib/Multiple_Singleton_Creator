@@ -1,11 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicMovement : DontDestroySingleton<BasicMovement>
+public class Enemy : Singleton<Enemy>
 {
     private void Awake()
     {
-        Debug.Log("Basic Movement");
+        Debug.Log("Enemy Called");
     }
 }

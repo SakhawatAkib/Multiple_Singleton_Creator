@@ -1,20 +1,36 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+//Shady
 using UnityEngine;
 
-public abstract class Singleton <T> : MonoBehaviour where T : Singleton<T>
+public abstract class SingletonBase : MonoBehaviour
 {
-    public static T Instance;
+    public abstract void Init();
+}//class end
 
-    protected virtual void Awake()
+public abstract class Singleton<T> : SingletonBase where T : Component
+{
+    public static T Instance {get; protected set;}
+
+    public override void Init()
     {
-        if (Instance != null)
+        if(Instance == null)
+            Instance = this as T;
+        else
+            Destroy(gameObject);
+    }//Init() end
+
+}//class end
+
+public abstract class DontDestroySingleton<T> : Singleton<T> where T : Component
+{
+    public override void Init()
+    {
+        if(Instance == null)
         {
-            Destroy(this);
-            return;
-        }
-        Instance = this as T;
-        DontDestroyOnLoad(this);
-    }
-}
+            Instance = this as T;
+            DontDestroyOnLoad(gameObject);
+        }//if end
+        else
+            DestroyImmediate(gameObject);
+    }//Init() end
+    
+}//class end
